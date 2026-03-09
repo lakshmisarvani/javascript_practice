@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Debounce Example</title>
+</head>
+<body>
+  <input type="text" id="search" placeholder="Type something..." />
+  <p>Check console output</p>
+
+  <script>
+    function debounce(func, delay) {
+      let timeoutId;
+
+      return function (...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          func.apply(this, args);
+        }, delay);
+      };
+    }
+
+    function handleSearch(event) {
+      console.log("Searching for:", event.target.value);
+    }
+
+    const debouncedSearch = debounce(handleSearch, 1000);
+
+    document
+      .getElementById("search")
+      .addEventListener("input", debouncedSearch);
+  </script>
+</body>
+</html>
+
+<!-- const user={
+  name:"alice"
+};
+function greet(age){
+  console.log(this.name,age);
+}
+setTimeout(greet.call(user,25),2000); -->
